@@ -170,6 +170,8 @@ def openai_completions(
     ]
     avg_time = [t.duration / n_examples] * len(completions_text)
 
+    print(completions)
+
     return dict(
         completions=completions_text,
         price_per_example=price,
@@ -235,17 +237,24 @@ def _openai_completion_helper(
                     if choice.message.content == "":
                         choices[i]["text"] = " "  # annoying doesn't allow empty string
                     else:
-                        choices[i]["text"] = choice.message.content
+                        if len(choice.message.content) < 3:
+                            choices[i]["text"] = choice.message.content
+                        else:
+                            start_index = choice.message.content.find('[')
+                            end_index = choice.message.content.rfind(']') + 1
+                            choices[i]['text'] = choice.message.content[start_index:end_index]
 
+                    # print('start!!!')
+                    # print(choices[i])
+                    # print('end!!!')
+                    
                     # backward compatibility for function calls # TODO: remove once function calls are removed
                     if choice.message.function_call:
                         # currently we only use function calls to get a JSON object => return raw text of json
                         choices[i]["text"] = choice.message.function_call.arguments
 
-                    if choice.message.tool_calls is not None:
-                        # currently we only use function calls to get a JSON object => return raw text of json
+                    if choice.message.tool_calls:
                         choices[i]["text"] = choice.message.tool_calls[0].function.arguments
-
             else:
                 completion_batch = client.completions.create(prompt=prompt_batch, **curr_kwargs)
                 choices = completion_batch.choices
@@ -253,7 +262,11 @@ def _openai_completion_helper(
                     choices[i] = choice.model_dump()
 
             for choice in choices:
-                choice["total_tokens"] = completion_batch.usage.total_tokens / len(prompt_batch)
+                # print(completion_batch.usage)
+                if completion_batch.usage.total_tokens:
+                    choice["total_tokens"] = completion_batch.usage.total_tokens / len(prompt_batch)
+                elif completion_batch.usage.totalTokens:
+                    choice["total_tokens"] = completion_batch.usage.totalTokens / len(prompt_batch)
             break
         except openai.OpenAIError as e:
             logging.warning(f"OpenAIError: {e}.")

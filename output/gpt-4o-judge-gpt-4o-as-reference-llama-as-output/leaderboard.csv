@@ -1,0 +1,2 @@
+,win_rate,standard_error,mode,avg_length,n_wins,n_wins_base,n_draws,n_total,discrete_win_rate,length_controlled_winrate,lc_standard_error
+Mistral-7B-v0.1_llama_sft,38.72639381798349,1.5962426536401835,community,2169,307,492,6,805,38.50931677018634,38.4015319158102,0.11326194307002817

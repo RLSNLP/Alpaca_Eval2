@@ -1,0 +1,2 @@
+,win_rate,standard_error,mode,avg_length,n_wins,n_wins_base,n_draws,n_total,discrete_win_rate,length_controlled_winrate,lc_standard_error
+Mistral-7B-v0.1_gpt4_sft,38.26086956521739,1.7140743178051396,community,2251,308,497,0,805,38.26086956521739,37.068994018696486,0.1613656987299165

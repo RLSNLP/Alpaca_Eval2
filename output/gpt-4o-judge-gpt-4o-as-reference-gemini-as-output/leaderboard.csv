@@ -1,0 +1,2 @@
+,win_rate,standard_error,mode,avg_length,n_wins,n_wins_base,n_draws,n_total,discrete_win_rate,length_controlled_winrate,lc_standard_error
+Mistral-7B-v0.1_gemini_sft,44.24574912379362,1.6554865025248018,community,2039,358,442,4,804,44.776119402985074,44.88134296350725,0.10917550204250857

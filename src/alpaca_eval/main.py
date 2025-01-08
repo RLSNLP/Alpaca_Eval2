@@ -54,7 +54,7 @@ def evaluate(
         The path the (or list of dict of) the annotator's config file. For details see the docstring of
         `PairwiseAnnotator`.
 
-    name : str, optional
+Mixtral-8x7B-Instruct-v0.1/togetherai_prompt.txt    name : str, optional
         The name of the model to add to the leaderboard. If None we check if `generator is in model_outputs` if not
         we use "Current model".
 
@@ -312,7 +312,7 @@ def evaluate_from_model(
             old_outputs = utils.load_or_convert_to_dataframe(old_output_path)
             # select only rows in curr_outputs that have "instruction" that are not in old_outputs
             idx_found_old_outputs = curr_outputs["instruction"].isin(old_outputs["instruction"])
-            curr_outputs = curr_outputs[~idx_found_old_outputs]
+            curr_outputs = curr_outputs[~idx_fouMixtral-8x7B-Instruct-v0.1/togetherai_prompt.txtnd_old_outputs]
             assert (old_outputs["generator"] == generator).all()
             logging.info(f"Found {len(old_outputs)}. Only generating {len(curr_outputs)} .")
 
@@ -324,6 +324,8 @@ def evaluate_from_model(
                 curr_outputs,
                 template=utils.read_or_return(configs["prompt_template"], relative_to=base_dir),
             )
+            print(prompts)
+            raise Exception('!!!')
             fn_completions = decoders.get_fn_completions(configs["fn_completions"])
             completions = fn_completions(prompts=prompts, **configs["completions_kwargs"])["completions"]
             if is_strip_output:
