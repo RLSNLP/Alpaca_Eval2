@@ -1,11 +1,8 @@
 notebooks/
 .idea
-example/
 .DS_Store
 .env
-src/**/*.json
 results
-./*.json
 client_configs/*.yaml
 old_results
 
